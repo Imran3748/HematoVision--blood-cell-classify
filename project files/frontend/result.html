@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .btn-secondary {
+            background-color: #006514D5 !important;
+            border-color: #006514D5 !important;
+        }
+        .btn-secondary:hover {
+            background-color: #005013 !important;
+            border-color: #005013 !important;
+        }
+    </style>
+</head>
+<body style="background-color: #FFCED6;">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><img src="hematology-blood-cell-logo-design.avif" alt="Logo" width="50" height="50"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Result</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="text-center">Classification Result</h1>
+                <div id="resultContainer" class="text-center">
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p>Loading result...</p>
+                </div>
+                <div id="resultCard" class="card d-none">
+                    <div class="card-body">
+                        <h5 class="card-title">Prediction Result</h5>
+                        <img id="uploadedImage" class="img-fluid mb-3" alt="Uploaded Image" style="max-width: 300px; display: block; margin: 0 auto;">
+                        <p id="predictionText" class="card-text"></p>
+                        <p id="confidenceText" class="card-text"></p>
+                        <div class="text-end">
+                            <a href="#" class="btn btn-primary me-2">Demo Video</a>
+                            <a href="index.html" class="btn btn-secondary">Classify Another Image</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const prediction = localStorage.getItem('prediction');
+            const confidence = localStorage.getItem('confidence');
+            const uploadedImage = localStorage.getItem('uploadedImage');
+            const resultContainer = document.getElementById('resultContainer');
+            const resultCard = document.getElementById('resultCard');
+            const predictionText = document.getElementById('predictionText');
+            const confidenceText = document.getElementById('confidenceText');
+            const imgElement = document.getElementById('uploadedImage');
+
+            if (prediction && confidence) {
+                predictionText.textContent = `Predicted Class: ${prediction}`;
+                confidenceText.textContent = `Confidence: ${confidence}%`;
+                if (uploadedImage) {
+                    imgElement.src = uploadedImage;
+                } else {
+                    imgElement.style.display = 'none';
+                }
+                resultContainer.classList.add('d-none');
+                resultCard.classList.remove('d-none');
+            } else {
+                resultContainer.innerHTML = '<p class="text-danger">No result found. Please upload an image first.</p>';
+            }
+        });
+    </script>
+    <div class="footer" style="position: fixed; bottom: 0; width: 100%;">
+        <footer class="text-center py-3 bg-dark text-white">
+            © 2026 | Designed & Developed by Shaik Imran
+        </footer>
+    </div>
+</body>
+</html>
